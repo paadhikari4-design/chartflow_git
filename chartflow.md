@@ -1,5 +1,7 @@
 # ChartFlow Architecture: Prakash Chatflow
 
+**GitHub Repository:** [paadhikari4-design/chartflow_git](https://github.com/paadhikari4-design/chartflow_git)
+
 This document outlines the architecture and configuration of the **Prakash Chatflow**, a conversational retrieval system built with Flowise/LangChain.
 
 ## Workflow Overview
