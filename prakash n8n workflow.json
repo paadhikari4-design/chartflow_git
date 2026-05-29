@@ -1,0 +1,164 @@
+{
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        -16
+      ],
+      "id": "91f6d604-a65f-4533-bfa9-e0cdc4847879",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "donkiSolarFlare",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.nasa",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -16
+      ],
+      "id": "660359f6-585f-407e-8d42-d498ba13a6f2",
+      "name": "Get a DONKI solar flare",
+      "credentials": {
+        "nasaApi": {
+          "id": "G80nzjTyryJoXjaK",
+          "name": "NASA account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "524d35d1-3be8-4562-ac16-7b112cf6612a",
+              "leftValue": "={{ $json.classType }}",
+              "rightValue": "C",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -160,
+        -16
+      ],
+      "id": "976e3e72-24c9-4c52-9932-a74a4f51c2b0",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "request",
+        "operation": "send",
+        "binId": "1774434129475-6510720769874",
+        "binContent": "=new solar flare class: {{ $json.classType }}",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.postBin",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -112
+      ],
+      "id": "373d4991-0bb7-4c9f-846b-405f50802037",
+      "name": "Send a request"
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.nasa",
+      "typeVersion": 1,
+      "position": [
+        224,
+        -112
+      ],
+      "id": "616b9fde-f0e6-49be-8cfc-3964e2383a75",
+      "name": "Get the astronomy picture of the day",
+      "credentials": {
+        "nasaApi": {
+          "id": "G80nzjTyryJoXjaK",
+          "name": "NASA account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get a DONKI solar flare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a DONKI solar flare": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a request": {
+      "main": [
+        [
+          {
+            "node": "Get the astronomy picture of the day",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "044d794c-7a1a-42fb-9115-89b8e13aadce",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a2c39a163945f558518cb0718aed655f3c7d54d0913443ea19ceed774fb53651"
+  },
+  "id": "EaNd4zwO6u1e8828",
+  "tags": []
+}
